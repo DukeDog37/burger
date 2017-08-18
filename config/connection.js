@@ -1,12 +1,22 @@
-var mysql = require('mysql');
-var myDataKeys = require("./keys.js");
-var keys = myDataKeys.dtkeys;
-var pool  = mysql.createPool({
-    host     : 'localhost',
-    user     : keys['user'],
-    password : keys['password'],
-    database : keys['database']
+// Set up MySQL connection.
+var mysql = require("mysql");
+
+var connection = mysql.createConnection({
+  port: 3306,
+  host: "localhost",
+  user: "root",
+  password: "xxxxxxx",
+  database: "burgers_db"
 });
 
+// Make connection.
+connection.connect(function(err) {
+  if (err) {
+    console.error("error connecting: " + err.stack);
+    return;
+  }
+  console.log("connected as id " + connection.threadId);
+});
 
-exports.pool = pool;
+// Export connection for our ORM to use.
+module.exports = connection;
