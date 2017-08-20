@@ -1,0 +1,7 @@
+input.new-item:focus {
+  outline: none;
+}
+
+.jumbotron {
+	background-color: #eea547;
+}

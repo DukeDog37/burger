@@ -1,40 +1,72 @@
 
 <div class="col-lg-4">
-		<ul>
-		  {{#each burgers}}
-		    {{#unless this.devoured}}
-		      <li>
-		        <textarea>{{this.id}}. {{this.burger_name}}</textarea>
+		<div class="panel-heading">
+			<h2>Burgers 2 Devour</h2>
+			<ul style="list-style: none;">
+			  {{#each burgers}}
+			  
+				{{#unless this.devoured}}
+				    <div class="panel-body">
+				      <li>
+				        <form action="/{{this.id}}?_method=PUT" method="POST">
+				          <input class="burgeritem" type="hidden" name="devour" value="false">{{this.id}}. {{this.burger_name}}</input>
+				          <button class="devourburger btn btn-success btn-md" type="submit">Devour It!</button>
+				        </form>
 
-		        <form action="/{{this.id}}?_method=PUT" method="POST">
-		          <input type="hidden" name="devour" value="false">
-		          <button type="submit">Devour It!</button>
-		        </form>
-
-		       
-		      </li>
-		    {{/unless}}
-		  {{/each}}
-		</ul>
-		  		
+				       
+				      </li>
+				     </div>
+				{{/unless}}
+			    
+			  {{/each}}
+			</ul>
+		</div>  		
 </div>
 <div class="col-lg-4">
 	<form action="/" method="POST">
 		<!-- <textarea type="text" name="burger"></textarea> -->
-		<input class="new-item" placeholder="Add a Burger" type="text" name="burger" />
-		<button type="submit">Submit</button>
+		<div class="panel-heading">
+			<h2>Add Burger to Menu</h2>
+			<div class="panel-body">
+				<input class="form-control" id="inputdefault" name="burger" type="text">
+				<!-- <input class="new-item" placeholder="Add a Burger" type="text" name="burger" /> -->
+				<button class="newburger btn btn-primary btn-md" type="submit">Submit</button>
+			</div>
+		</div>
 	</form>	        
 </div>
 <div class="col-lg-4">
-	    <ul>
-		  {{#each burgers}}
-		    {{#if this.devoured}}
-		      <li>
-		        {{this.id}}. {{this.burger_name}}
-		      </li>
-		    {{/if}}
-		  {{/each}}
-		</ul>    
+	    <div class="panel-heading">
+			<h2>Burgers I Devoured</h2>
+		    <ul style="list-style: none;">
+			  {{#each burgers}}
+				{{#if this.devoured}}
+				    <div class="panel-body">
+					    <li>
+					      <form action="/{{this.id}}?_method=delete" method="POST">
+					          <input class="eatenitem" type="hidden" name="devour" value="false">{{this.id}}. {{this.burger_name}}</input>
+					          <button class="deleteburger btn btn-danger btn-md" type="submit">Delete It!</button>
+					      </form>			      
+				      	</li>
+				     </div>
+				{{/if}}
+			    
+			  {{/each}}
+
+			</ul>
+		</div>    
 </div>
+<script>
+$(document).ready(function(){
+    $(".form-control").focus(function(){
+        $(this).css("background-color", "#cccccc");
+    });
+    $(".form-control").blur(function(){
+        $(this).css("background-color", "#ffffff");
+        //console.log("this is where dupe checking logic will go");
+    });
+});
+</script>
+
 
 

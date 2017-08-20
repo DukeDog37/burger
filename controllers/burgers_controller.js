@@ -11,7 +11,7 @@ router.get("/", function(req, res) {
     var hbsObject = {
       burgers: data
     };
-    console.log(hbsObject);
+    //console.log(hbsObject);
     res.render("index", hbsObject);
   });
 });
@@ -35,7 +35,7 @@ router.put("/:id", function(req, res) {
   });
 });
 
-router.delete('/burgers/delete/:id', function(req, res){
+router.delete('/:id', function(req, res){
   var condition = 'id = ' + req.params.id;
     burger.delete(condition, function(){
       res.redirect('/');
